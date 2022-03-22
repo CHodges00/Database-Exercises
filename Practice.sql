@@ -37,7 +37,19 @@
 # Made db in console
 use practice_db;
 
-# Made tabl ein console
+# Deletes table every time so new content isn't duplicate
+DROP TABLE IF EXISTS authors;
+
+# Make table
+CREATE TABLE authors (
+         id INT NOT NULL AUTO_INCREMENT,
+         first_name VARCHAR(100) NOT NULL,
+         last_name VARCHAR(100) NOT NULL,
+         PRIMARY KEY (id),
+         UNIQUE (first_name, last_name)
+     );
+
+
 SHOW TABLES ;
 DESCRIBE authors;
 
@@ -45,11 +57,23 @@ DESCRIBE authors;
 INSERT INTO authors (id, first_name, last_name)
 VALUES (0, 'tom', 'harry');
 
-#  Show all content in table
-SELECT * FROM authors;
-
-# Make last name unique so only one can be entered into table
-ALTER TABLE authors
-ADD UNIQUE (last_name);
 
 # Add same to show no duplicates taken
+# INSERT INTO authors (id, first_name, last_name)
+# VALUES (0, 'tom', 'harry');
+
+INSERT INTO authors (id, first_name, last_name)
+VALUES (0, 'jerry', 'springer');
+
+
+
+
+
+
+
+
+
+
+#  Show all content in table
+SELECT * FROM authors
+ORDER BY id ASC;
