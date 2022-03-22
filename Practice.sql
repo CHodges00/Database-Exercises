@@ -23,6 +23,41 @@
 # GROUP BY gender;
 
 
+# # Made db in console
+# use practice_db;
+#
+# # Deletes table every time so new content isn't duplicate
+# DROP TABLE IF EXISTS authors;
+#
+# # Make table
+# CREATE TABLE authors (
+#          id INT NOT NULL AUTO_INCREMENT,
+#          first_name VARCHAR(100) NOT NULL,
+#          last_name VARCHAR(100) NOT NULL,
+#          PRIMARY KEY (id),
+#          UNIQUE (first_name, last_name)
+#      );
+#
+#
+# SHOW TABLES ;
+# DESCRIBE authors;
+#
+# # Insert values into table
+# INSERT INTO authors (id, first_name, last_name)
+# VALUES (0, 'tom', 'harry');
+#
+#
+# # Add same to show no duplicates taken
+# # INSERT INTO authors (id, first_name, last_name)
+# # VALUES (0, 'tom', 'harry');
+#
+# INSERT INTO authors (id, first_name, last_name)
+# VALUES (0, 'jerry', 'springer');
+#
+#
+# #  Show all content in table
+# SELECT * FROM authors
+# ORDER BY id ASC;
 
 
 
@@ -34,46 +69,56 @@
 
 
 
-# Made db in console
+
+
+
+
+
 use practice_db;
 
-# Deletes table every time so new content isn't duplicate
 DROP TABLE IF EXISTS authors;
 
-# Make table
-CREATE TABLE authors (
-         id INT NOT NULL AUTO_INCREMENT,
-         first_name VARCHAR(100) NOT NULL,
-         last_name VARCHAR(100) NOT NULL,
-         PRIMARY KEY (id),
-         UNIQUE (first_name, last_name)
-     );
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE roles
+(
+    id   INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE users
+(
+    id      INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(100) NOT NULL,
+    email   VARCHAR(100) NOT NULL,
+    role_id INT UNSIGNED DEFAULT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (role_id) REFERENCES roles (id)
+);
+
+INSERT INTO roles (name)
+VALUES ('admin');
+INSERT INTO roles (name)
+VALUES ('author');
+INSERT INTO roles (name)
+VALUES ('reviewer');
+INSERT INTO roles (name)
+VALUES ('commenter');
+
+INSERT INTO users (name, email, role_id)
+VALUES ('bob', 'bob@example.com', 1),
+       ('joe', 'joe@example.com', 2),
+       ('sally', 'sally@example.com', 3),
+       ('adam', 'adam@example.com', 3),
+       ('jane', 'jane@example.com', null),
+       ('mike', 'mike@example.com', null);
 
 
 SHOW TABLES ;
-DESCRIBE authors;
+DESCRIBE roles;
+DESCRIBE users;
 
-# Insert values into table
-INSERT INTO authors (id, first_name, last_name)
-VALUES (0, 'tom', 'harry');
-
-
-# Add same to show no duplicates taken
-# INSERT INTO authors (id, first_name, last_name)
-# VALUES (0, 'tom', 'harry');
-
-INSERT INTO authors (id, first_name, last_name)
-VALUES (0, 'jerry', 'springer');
-
-
-
-
-
-
-
-
-
-
-#  Show all content in table
-SELECT * FROM authors
-ORDER BY id ASC;
+SELECT * FROM roles;
+SELECT * FROM users;
