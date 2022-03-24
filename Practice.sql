@@ -189,15 +189,26 @@
 
 use employees;
 
-# SHOW NAME/B-DAY OF EMPLOYEES IN DEPT_MANAGER
-SELECT first_name, last_name, birth_date
-FROM employees
-WHERE emp_no IN (
-    SELECT emp_no
-    FROM dept_manager
-)
-LIMIT 10;
+# # SHOW NAME/B-DAY OF EMPLOYEES IN DEPT_MANAGER
+# SELECT first_name, last_name, birth_date
+# FROM employees
+# WHERE emp_no IN (
+#     SELECT emp_no
+#     FROM dept_manager
+# )
+# LIMIT 10;
 
 
 
 
+# find all employees hired on the same date as employee 101010 using subquery
+DESCRIBE employees;
+
+# Find hire date of employee 101010
+SELECT * FROM employees WHERE emp_no = 101010;
+
+# Hire_date = 1990-10-22
+
+SELECT * FROM employees WHERE hire_date IN (
+    SELECT hire_date FROM employees WHERE hire_date = '1990-10-22'
+    );
