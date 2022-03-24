@@ -29,6 +29,8 @@ WHERE emp_no IN(
     WHERE to_date > curdate()
     AND gender = 'F');
 
-create database food_db;
-SHOW DATABASES;
+# DROP DATABASE IF EXISTS food_db;
+# create database if not exists food_db;
+# # CREATE DATABASE food_db;
+# SHOW DATABASES;
 
