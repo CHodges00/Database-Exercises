@@ -189,6 +189,7 @@
 
 use employees;
 
+# SHOW NAME/B-DAY OF EMPLOYEES IN DEPT_MANAGER
 SELECT first_name, last_name, birth_date
 FROM employees
 WHERE emp_no IN (
@@ -196,5 +197,7 @@ WHERE emp_no IN (
     FROM dept_manager
 )
 LIMIT 10;
+
+
 
 
