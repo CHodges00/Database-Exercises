@@ -201,7 +201,7 @@ use employees;
 
 
 
-# find all employees hired on the same date as employee 101010 using subquery
+# find all employees hired on the same date as employee 101010 using sub-query
 DESCRIBE employees;
 
 # Find hire date of employee 101010
