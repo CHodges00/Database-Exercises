@@ -60,20 +60,6 @@
 # ORDER BY id ASC;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # use practice_db;
 #
 # DROP TABLE IF EXISTS authors;
@@ -146,19 +132,6 @@
 #          RIGHT JOIN roles ON users.role_id = roles.id;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #
 # use employees;
 #
@@ -170,21 +143,6 @@
 #          JOIN departments as d
 #               ON d.dept_no = de.dept_no
 # WHERE de.to_date = '9999-01-01' AND e.emp_no = 10001;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # use employees;
@@ -212,34 +170,6 @@
 # SELECT * FROM employees WHERE hire_date IN (
 #     SELECT hire_date FROM employees WHERE hire_date = '1990-10-22'
 #     );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Guide to Database Design
@@ -375,71 +305,89 @@
 #
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-use practice_db;
-DROP TABLE IF EXISTS quotes;
-DROP TABLE IF EXISTS authors;
-
-CREATE TABLE IF NOT EXISTS authors (
-                         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                         first_name VARCHAR(50),
-                         last_name  VARCHAR(100) NOT NULL,
-                         PRIMARY KEY (id)
-);
-
-INSERT INTO authors(first_name, last_name) VALUES
-                                               ('Douglas', 'Adams'),
-                                               ('Mark', 'Twain'),
-                                               ('Kurt', 'Vonnegut');
-
-CREATE TABLE if not exists quotes (
-                        id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-                        content TEXT NOT NULL,
-                        author_id INT UNSIGNED NOT NULL,
-                        PRIMARY KEY (id),
-                        FOREIGN KEY (author_id) REFERENCES authors (id)
-);
-
-# Seeds
-INSERT INTO quotes (author_id, content)
-VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'),
-        'I love deadlines. I love the whooshing noise they make as they go by.');
-INSERT INTO quotes (author_id, content)
-VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'),
-        'Time is an illusion. Lunchtime doubly so.');
-INSERT INTO quotes (author_id, content)
-values ((select id from authors where first_name = 'Mark' and last_name = 'Twain'),
-        'Clothes make the man. Naked people have little or no influence on society.');
-INSERT INTO quotes (author_id, content)
-values ((select id from authors where first_name = 'Kurt' and last_name = 'Vonnegut'),
-        'The universe is a big place, perhaps the biggest.');
-INSERT INTO quotes (author_id, content)
-VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'), 'Don''t Panic.');
-
-SELECT * FROM authors;
-SELECT * FROM quotes;
-
-
+#
+# use practice_db;
+#
+#
+#
+#
+# DROP TABLE IF EXISTS quote_topic;
+# DROP TABLE IF EXISTS quotes;
+# DROP TABLE IF EXISTS authors;
+# DROP TABLE IF EXISTS topics;
+#
+#
+# CREATE TABLE IF NOT EXISTS authors (
+#                          id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+#                          first_name VARCHAR(50),
+#                          last_name  VARCHAR(100) NOT NULL,
+#                          PRIMARY KEY (id)
+# );
+#
+# INSERT INTO authors(first_name, last_name) VALUES
+#                                                ('Douglas', 'Adams'),
+#                                                ('Mark', 'Twain'),
+#                                                ('Kurt', 'Vonnegut');
+#
+# CREATE TABLE if not exists quotes (
+#                         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+#                         content TEXT NOT NULL,
+#                         author_id INT UNSIGNED NOT NULL,
+#                         PRIMARY KEY (id),
+#                         FOREIGN KEY (author_id) REFERENCES authors (id)
+# );
+#
+# # Seeds
+# INSERT INTO quotes (author_id, content)
+# VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'),
+#         'I love deadlines. I love the whooshing noise they make as they go by.');
+# INSERT INTO quotes (author_id, content)
+# VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'),
+#         'Time is an illusion. Lunchtime doubly so.');
+# INSERT INTO quotes (author_id, content)
+# values ((select id from authors where first_name = 'Mark' and last_name = 'Twain'),
+#         'Clothes make the man. Naked people have little or no influence on society.');
+# INSERT INTO quotes (author_id, content)
+# values ((select id from authors where first_name = 'Kurt' and last_name = 'Vonnegut'),
+#         'The universe is a big place, perhaps the biggest.');
+# INSERT INTO quotes (author_id, content)
+# VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'), 'Don''t Panic.');
+#
+#
+# CREATE TABLE IF NOT EXISTS topics (
+#                         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+#                         name VARCHAR(255),
+#                         PRIMARY KEY (id)
+# );
+#
+# INSERT INTO topics(name) VALUES
+#                              ('Space and Time'),
+#                              ('Humor'),
+#                              ('Office Life'),
+#                              ('Hitchiker''s Guide to the Galaxy');
+#
+#
+# CREATE TABLE IF NOT EXISTS quote_topic (
+#                              quote_id INTEGER UNSIGNED NOT NULL,
+#                              topic_id INTEGER UNSIGNED NOT NULL,
+#                              FOREIGN KEY (quote_id) REFERENCES quotes(id),
+#                              FOREIGN KEY (topic_id) REFERENCES topics(id)
+# );
+#
+# INSERT INTO quote_topic(quote_id, topic_id)
+# VALUES (1, 2), (1, 3), (2, 4), (3, 1),
+#        (3, 2), (3, 3), (3, 4), (4, 2), (5, 1);
+#
+#
+#
+#
+# SELECT * FROM authors;
+# SELECT * FROM quotes;
+# SELECT * FROM topics;
+# SELECT * FROM quote_topic;
+#
+#
+#
 
 
 # USE OnlineShop;
@@ -497,3 +445,39 @@ SELECT * FROM quotes;
 # SELECT * FROM Customers;
 # SELECT * FROM Items;
 # SELECT * FROM OrderHistory;
+
+
+use practice_db;
+
+DROP TABLE IF EXISTS quote_topic;
+DROP TABLE IF EXISTS quotes;
+DROP TABLE IF EXISTS topics;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS authors;
+DROP TABLE IF EXISTS roles;
+DROP TABLE IF EXISTS user;
+
+CREATE TABLE IF NOT EXISTS user
+(
+    id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    first_name VARCHAR(25),
+    last_name  VARCHAR(25),
+    user_name  VARCHAR(40),
+    PRIMARY KEY (id)
+);
+INSERT INTO user VALUES (0, 'tim', 'toolman', 'TimmyTom');
+
+
+
+CREATE TABLE IF NOT EXISTS password(
+    pass_id INT UNSIGNED NOT NULL,
+    password VARCHAR(50),
+    PRIMARY KEY (pass_id),
+    FOREIGN KEY (pass_id) REFERENCES user (id)
+
+);
+
+
+SHOW TABLES ;
+SELECT * FROM user;
+SELECT * FROM password;
