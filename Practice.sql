@@ -373,3 +373,127 @@
 # - [sqldbm](https://sqldbm.com)
 # - Don't forget about good 'ol pencil and paper or a whiteboard!
 #
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+use practice_db;
+DROP TABLE IF EXISTS quotes;
+DROP TABLE IF EXISTS authors;
+
+CREATE TABLE IF NOT EXISTS authors (
+                         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                         first_name VARCHAR(50),
+                         last_name  VARCHAR(100) NOT NULL,
+                         PRIMARY KEY (id)
+);
+
+INSERT INTO authors(first_name, last_name) VALUES
+                                               ('Douglas', 'Adams'),
+                                               ('Mark', 'Twain'),
+                                               ('Kurt', 'Vonnegut');
+
+CREATE TABLE if not exists quotes (
+                        id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                        content TEXT NOT NULL,
+                        author_id INT UNSIGNED NOT NULL,
+                        PRIMARY KEY (id),
+                        FOREIGN KEY (author_id) REFERENCES authors (id)
+);
+
+# Seeds
+INSERT INTO quotes (author_id, content)
+VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'),
+        'I love deadlines. I love the whooshing noise they make as they go by.');
+INSERT INTO quotes (author_id, content)
+VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'),
+        'Time is an illusion. Lunchtime doubly so.');
+INSERT INTO quotes (author_id, content)
+values ((select id from authors where first_name = 'Mark' and last_name = 'Twain'),
+        'Clothes make the man. Naked people have little or no influence on society.');
+INSERT INTO quotes (author_id, content)
+values ((select id from authors where first_name = 'Kurt' and last_name = 'Vonnegut'),
+        'The universe is a big place, perhaps the biggest.');
+INSERT INTO quotes (author_id, content)
+VALUES ((select id from authors where first_name = 'Douglas' and last_name = 'Adams'), 'Don''t Panic.');
+
+SELECT * FROM authors;
+SELECT * FROM quotes;
+
+
+
+
+# USE OnlineShop;
+# -- Create Customers Table
+# DROP TABLE IF EXISTS Customers;
+# CREATE TABLE Customers(
+#                           UserId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#                           Name VARCHAR(80) NOT NULL,
+#                           Phone VARCHAR(15),
+#                           State VARCHAR(2)
+# );
+#
+# # COULD CREATE STATE TABLE ALSO
+# INSERT INTO Customers VALUES (0, 'Jimmy','4567891230','GA');
+# INSERT INTO Customers VALUES (0, 'Henry','1234567890','FL');
+# INSERT INTO Customers VALUES (0, 'Ruby','7539514682','GA');
+# INSERT INTO Customers VALUES (0, 'Julia','3571592486','TX');
+# INSERT INTO Customers VALUES (0, 'Anna','0231456785','OK');
+#
+#
+# # ITEMS TABLE
+# DROP TABLE IF EXISTS Items;
+# CREATE TABLE Items(
+#                       ItemId INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+#                       CategoryId INT,
+#                       Name VARCHAR(100) NOT NULL,
+#                       Price FLOAT
+# );
+# INSERT INTO items VALUES (0, 1, 'Androud Mobile Phone', 250.00);
+# INSERT INTO items VALUES (0, 1, 'i7 processor, 8GB RAM Laptop', 1000.00);
+# INSERT INTO items VALUES (0, 2, 'How to train your cat', 25.00);
+# INSERT INTO items VALUES (0, 2, 'Healthy dog food recipes', 19.00);
+# INSERT INTO items VALUES (0, 2, 'Learn how to meditate for mental health', 30.00);
+# INSERT INTO items VALUES (0, 3, 'Beautiful Black T-Shirts', 99.00);
+# INSERT INTO items VALUES (0, 3, 'Blue Colored Jeans', 150.00);
+#
+#
+# # ORDER HISTORY TABLE
+# DROP TABLE IF EXISTS OrderHistory;
+# CREATE TABLE OrderHistory (
+#                               OrderHistoryId INT PRIMARY KEY AUTO_INCREMENT,
+#                               UserId INT NOT NULL,
+#                               Itemid INT NOT NULL,
+#                               OrderedAmount INT NOT NULL,
+#                               FOREIGN KEY (UserId) REFERENCES Customers (UserId)
+#
+# );
+# INSERT INTO OrderHistory VALUES (0, 5, 1, 2);
+# INSERT INTO OrderHistory VALUES (0, 1, 1, 7);
+# INSERT INTO OrderHistory VALUES (0, 5, 3, 45);
+# INSERT INTO OrderHistory VALUES (0, 1, 3, 1);
+#
+# # SHOW ALL CONTENT IN TABLES
+# SHOW TABLES;
+# SELECT * FROM Customers;
+# SELECT * FROM Items;
+# SELECT * FROM OrderHistory;
