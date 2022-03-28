@@ -449,35 +449,68 @@
 
 use practice_db;
 
-DROP TABLE IF EXISTS quote_topic;
-DROP TABLE IF EXISTS quotes;
-DROP TABLE IF EXISTS topics;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS authors;
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS user;
+# DROP TABLE IF EXISTS quote_topic;
+# DROP TABLE IF EXISTS quotes;
+# DROP TABLE IF EXISTS topics;
+# DROP TABLE IF EXISTS users;
+# DROP TABLE IF EXISTS authors;
+# DROP TABLE IF EXISTS roles;
+# DROP TABLE  user;
 
-CREATE TABLE IF NOT EXISTS user
+# CREATE TABLE IF NOT EXISTS user
+# (
+#     id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+#     first_name VARCHAR(25),
+#     last_name  VARCHAR(25),
+#     user_name  VARCHAR(40),
+#     PRIMARY KEY (id)
+# );
+# INSERT INTO user VALUES (0, 'tim', 'toolman', 'TimmyTom');
+
+
+#
+# CREATE TABLE IF NOT EXISTS password(
+#     pass_id INT UNSIGNED NOT NULL,
+#     password VARCHAR(50),
+#     PRIMARY KEY (pass_id)
+# #     FOREIGN KEY (pass_id) REFERENCES user (id)
+# );
+
+#
+# SHOW TABLES ;
+# SELECT * FROM user;
+# SELECT * FROM password;
+
+use many_db;
+
+
+DROP TABLE IF EXISTS userpassword;
+DROP TABLE IF EXISTS siteuser;
+
+CREATE TABLE IF NOT EXISTS siteuser
 (
     id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
     first_name VARCHAR(25),
     last_name  VARCHAR(25),
-    user_name  VARCHAR(40),
+    user_name  VARCHAR(40) UNIQUE ,
     PRIMARY KEY (id)
 );
-INSERT INTO user VALUES (0, 'tim', 'toolman', 'TimmyTom');
+INSERT IGNORE siteuser VALUES (0, 'Tim', 'Toolman', 'Taylor1967');
 
 
 
-CREATE TABLE IF NOT EXISTS password(
-    pass_id INT UNSIGNED NOT NULL,
+
+CREATE TABLE IF NOT EXISTS userpassword
+(
+    pass_user VARCHAR(40),
     password VARCHAR(50),
-    PRIMARY KEY (pass_id),
-    FOREIGN KEY (pass_id) REFERENCES user (id)
-
+    PRIMARY KEY (pass_user)
 );
+INSERT IGNORE userpassword (pass_user, password)
+VALUES ((select user_name from siteuser where first_name = 'Tim' and last_name = 'Toolman'), 'Timaay87');
+
 
 
 SHOW TABLES ;
-SELECT * FROM user;
-SELECT * FROM password;
+SELECT * FROM siteuser;
+SELECT * FROM userpassword;
