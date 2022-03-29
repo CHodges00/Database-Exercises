@@ -486,6 +486,7 @@ use many_db;
 
 DROP TABLE IF EXISTS userpassword;
 DROP TABLE IF EXISTS siteuser;
+DROP TABLE IF EXISTS userorder;
 
 CREATE TABLE IF NOT EXISTS siteuser
 (
@@ -507,6 +508,7 @@ CREATE TABLE IF NOT EXISTS userpassword
 (
     pass_user VARCHAR(40),
     password VARCHAR(50),
+    FOREIGN KEY (pass_user) REFERENCES siteuser (user_name),
     PRIMARY KEY (pass_user)
 );
 INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'Tim' and last_name = 'Toolman'), 'Timaay87');
@@ -514,6 +516,16 @@ INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from 
 INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'John' and last_name = 'Cena'), 'elbisivni');
 INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'Mike' and last_name = 'Jones'), 'YouKNOW!');
 
+
+CREATE TABLE IF NOT EXISTS userorder
+(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    ordr_num INT UNSIGNED NOT NULL,
+    ordr_ttl INT UNSIGNED NOT NULL ,
+    user VARCHAR(40),
+    FOREIGN KEY (user) REFERENCES userpassword (pass_user),
+    PRIMARY KEY (id)
+);
 
 
 
