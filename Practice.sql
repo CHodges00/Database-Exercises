@@ -496,6 +496,9 @@ CREATE TABLE IF NOT EXISTS siteuser
     PRIMARY KEY (id)
 );
 INSERT IGNORE siteuser VALUES (0, 'Tim', 'Toolman', 'Taylor1967');
+INSERT IGNORE siteuser VALUES (0, 'Jane', 'Doe', 'DeerWhispeR');
+INSERT IGNORE siteuser VALUES (0, 'John', 'Cena', 'UcantSEEme');
+INSERT IGNORE siteuser VALUES (0, 'Mike', 'Jones', 'MikeWho?');
 
 
 
@@ -506,8 +509,10 @@ CREATE TABLE IF NOT EXISTS userpassword
     password VARCHAR(50),
     PRIMARY KEY (pass_user)
 );
-INSERT IGNORE userpassword (pass_user, password)
-VALUES ((select user_name from siteuser where first_name = 'Tim' and last_name = 'Toolman'), 'Timaay87');
+INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'Tim' and last_name = 'Toolman'), 'Timaay87');
+INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'Jane' and last_name = 'Doe'), 'Bleat123');
+INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'John' and last_name = 'Cena'), 'elbisivni');
+INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'Mike' and last_name = 'Jones'), 'YouKNOW!');
 
 
 
