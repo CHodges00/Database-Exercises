@@ -483,10 +483,10 @@ use practice_db;
 
 use many_db;
 
-
+DROP TABLE IF EXISTS userorder;
 DROP TABLE IF EXISTS userpassword;
 DROP TABLE IF EXISTS siteuser;
-DROP TABLE IF EXISTS userorder;
+
 
 CREATE TABLE IF NOT EXISTS siteuser
 (
@@ -523,9 +523,17 @@ CREATE TABLE IF NOT EXISTS userorder
     ordr_num INT UNSIGNED NOT NULL,
     ordr_ttl INT UNSIGNED NOT NULL ,
     user VARCHAR(40),
-    FOREIGN KEY (user) REFERENCES userpassword (pass_user),
+    FOREIGN KEY (user) REFERENCES siteuser (user_name),
     PRIMARY KEY (id)
 );
+INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 23, 857, (
+    select user_name from siteuser where first_name = 'Tim'));
+INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 67, 78, (
+    select user_name from siteuser where first_name = 'Jane'));
+INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 2, 7897, (
+    select user_name from siteuser where first_name = 'John'));
+INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 143, 200, (
+    select user_name from siteuser where first_name = 'Mike'));
 
 
 
@@ -533,3 +541,4 @@ CREATE TABLE IF NOT EXISTS userorder
 SHOW TABLES ;
 SELECT * FROM siteuser;
 SELECT * FROM userpassword;
+SELECT * FROM userorder;
