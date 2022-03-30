@@ -486,6 +486,7 @@ use many_db;
 DROP TABLE IF EXISTS userorder;
 DROP TABLE IF EXISTS userpassword;
 DROP TABLE IF EXISTS siteuser;
+DROP TABLE IF EXISTS orderitems;
 
 
 CREATE TABLE IF NOT EXISTS siteuser
@@ -557,3 +558,4 @@ SHOW TABLES ;
 SELECT * FROM siteuser;
 SELECT * FROM userpassword;
 SELECT * FROM userorder;
+SELECT * FROM orderitems;
