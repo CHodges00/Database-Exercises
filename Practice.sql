@@ -517,23 +517,38 @@ INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from 
 INSERT IGNORE userpassword (pass_user, password) VALUES ((select user_name from siteuser where first_name = 'Mike' and last_name = 'Jones'), 'YouKNOW!');
 
 
+CREATE TABLE IF NOT EXISTS orderitems(
+                                         id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+                                         descr VARCHAR(100),
+                                         price INT UNSIGNED NOT NULL,
+                                         PRIMARY KEY (id)
+);
+INSERT IGNORE orderitems (id, descr, price) VALUES (0, 'Chair', 250);
+INSERT IGNORE orderitems (id, descr, price) VALUES (0, 'Desk', 200);
+INSERT IGNORE orderitems (id, descr, price) VALUES (0, 'Computer', 1800);
+INSERT IGNORE orderitems (id, descr, price) VALUES (0, 'Monitor', 400);
+
+
+
+
 CREATE TABLE IF NOT EXISTS userorder
 (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     ordr_num INT UNSIGNED NOT NULL,
-    ordr_ttl INT UNSIGNED NOT NULL ,
+    ordr_itm VARCHAR(100),
     user VARCHAR(40),
-    FOREIGN KEY (user) REFERENCES siteuser (user_name),
     PRIMARY KEY (id)
 );
-INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 23, 857, (
+INSERT IGNORE userorder (id, ordr_num, ordr_itm, user) VALUES (0, 23, (select descr from orderitems where id = 1) , (
     select user_name from siteuser where first_name = 'Tim'));
-INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 67, 78, (
+INSERT IGNORE userorder (id, ordr_num, ordr_itm, user) VALUES (0, 67, (select descr from orderitems where id = 2) , (
     select user_name from siteuser where first_name = 'Jane'));
-INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 2, 7897, (
+INSERT IGNORE userorder (id, ordr_num, ordr_itm, user) VALUES (0, 2, (select descr from orderitems where id = 3) , (
     select user_name from siteuser where first_name = 'John'));
-INSERT IGNORE userorder (id, ordr_num, ordr_ttl, user) VALUES (0, 143, 200, (
+INSERT IGNORE userorder (id, ordr_num, ordr_itm, user) VALUES (0, 143, (select descr from orderitems where id = 4) , (
     select user_name from siteuser where first_name = 'Mike'));
+
+
 
 
 
