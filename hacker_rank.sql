@@ -1,4 +1,4 @@
-use practice_db;
+# use practice_db;
 
 
 # Query all columns for all American cities in the CITY table with populations larger than 100000.
@@ -15,5 +15,7 @@ CREATE TABLE city(
 );
 
 INSERT INTO  city (name, countrycode, district, population) VALUES
-('Atlanta', 312, 'Georgia', 200000),
-('Miami', 786, 'Florida', 20);
+('Atlanta', 'USA', 'Georgia', 200000),
+('Miami', 'USA', 'Florida', 20);
+
+SELECT * from city where countrycode = 'USA' and population > 100000;
