@@ -212,5 +212,42 @@ SET @row := 0;
 SELECT REPEAT('* ', @row := @row + 1) FROM information_schema.TABLES WHERE @row < 20;
 
 
-# Write a query to print all prime numbers less than or equal to 1000.
-# Print your result on a single line, and use the ampersand (&) character as your separator (instead of a space).
+
+
+
+
+#
+#
+#
+# The COUNTRY table is as follows:
+DROP TABLE IF EXISTS country;
+
+CREATE TABLE country(
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    code VARCHAR(3),
+    name VARCHAR(44),
+    continent VARCHAR(13),
+    region VARCHAR(25),
+    surfacearea INT,
+    indepyear VARCHAR(5),
+    population INT,
+    lifeexpectancy VARCHAR(4),
+    gnp INT,
+    gnpold VARCHAR(9),
+    localname VARCHAR(44),
+    governmentform VARCHAR(44),
+    headofstate VARCHAR(32),
+    capital VARCHAR(4),
+    code2 VARCHAR(2),
+    PRIMARY KEY (id)
+);
+
+INSERT INTO country (code, name, continent, region, surfacearea, indepyear, population, lifeexpectancy, gnp, gnpold, localname,
+                     governmentform, headofstate, capital, code2)
+VALUES ('321', 'vefvf', 'fref', 'bvefbv', 4235, '1800', 432423,
+        '34', 3421432, '32442', 'vrevgre', 'wefqrvreqvr', 'frewvrwe', 'few', 'we'),
+       ('567', 'gtrbrt', 'gtrgt', 'getrge', 4354, '3452', 2454334, '56', 5432,
+        '543543', 'grewgr', 'grewgwre', 'hythyt', 'hyth', 'hy');
+
+# Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+SELECT SUM(city.population) FROM city INNER JOIN country ON city.countrycode = CODE WHERE CONTINENT = 'ASIA'
