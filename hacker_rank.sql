@@ -157,5 +157,33 @@ VALUES ('Mark', 30),
        ('Tom', 45),
        ('Sarah', 2);
 
-# Query the Name of any student in STUDENTS who scored higher than  Marks. Order your output by the last three characters of each name.
+# Query the Name of any student in STUDENTS who scored higher than 75 Marks. Order your output by the last three characters of each name.
 # If two or more students both have names ending in the same last three characters (i.e.: Bobby, Robby, etc.), secondary sort them by ascending ID.
+SELECT name
+from students
+where marks > 75
+ORDER BY RIGHT(Name, 3), Id;
+
+#
+#
+#
+# The EMPLOYEE table is described as follows:
+DROP TABLE IF EXISTS employee;
+
+CREATE TABLE employee
+(
+    id          INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    employee_id INT          NOT NULL,
+    name        VARCHAR(50),
+    months      INT          NOT NULL,
+    salary      INT          NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO employee (employee_id, name, months, salary)
+VALUES (213, 'Tom', 32, 45000),
+       (456, 'Rick', 65, 78000),
+       (678, 'Jessica', 3, 40000);
+
+# Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
+SELECT name from employee ORDER BY name;
