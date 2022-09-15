@@ -250,4 +250,11 @@ VALUES ('321', 'vefvf', 'fref', 'bvefbv', 4235, '1800', 432423,
         '543543', 'grewgr', 'grewgwre', 'hythyt', 'hyth', 'hy');
 
 # Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
-SELECT SUM(city.population) FROM city INNER JOIN country ON city.countrycode = CODE WHERE CONTINENT = 'ASIA'
+SELECT SUM(city.population) FROM city INNER JOIN country ON city.countrycode = CODE WHERE CONTINENT = 'ASIA';
+
+#Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+SELECT c.name FROM city c LEFT JOIN country co ON c.countrycode = co.CODE WHERE co.CONTINENT = 'Africa';
+
+# Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent)
+# and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+SELECT country.continent, FLOOR(avg(city.population)) FROM country JOIN city ON city.countrycode = country.code GROUP BY country.continent;
