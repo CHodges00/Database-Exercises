@@ -187,3 +187,30 @@ VALUES (213, 'Tom', 32, 45000),
 
 # Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
 SELECT name from employee ORDER BY name;
+
+# Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than 2000 per month
+# who have been employees for less than  months. Sort your result by ascending employee_id.
+SELECT name from employee where salary > 2000 and months < 10 ORDER BY employee_id;
+
+
+
+
+
+
+
+
+
+# P(R) represents a pattern drawn by Julia in R rows. The following pattern represents P(5):
+#       *
+#       * *
+#       * * *
+#       * * * *
+#       * * * * *
+# Write a query to print the pattern P(20).
+
+SET @row := 0;
+SELECT REPEAT('* ', @row := @row + 1) FROM information_schema.TABLES WHERE @row < 20;
+
+
+# Write a query to print all prime numbers less than or equal to 1000.
+# Print your result on a single line, and use the ampersand (&) character as your separator (instead of a space).
