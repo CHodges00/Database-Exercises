@@ -258,3 +258,26 @@ SELECT c.name FROM city c LEFT JOIN country co ON c.countrycode = co.CODE WHERE 
 # Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent)
 # and their respective average city populations (CITY.Population) rounded down to the nearest integer.
 SELECT country.continent, FLOOR(avg(city.population)) FROM country JOIN city ON city.countrycode = country.code GROUP BY country.continent;
+
+#
+#
+#
+# The STUDENTS, GRADES tables are as follows:
+
+DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS grades;
+
+CREATE TABLE students (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50),
+    marks INT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE grades(
+    grade INT,
+    min INT,
+    max INT,
+    FOREIGN KEY (grade) REFERENCES students(id)
+);
+
