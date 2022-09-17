@@ -289,27 +289,48 @@ CREATE TABLE grades
 (
     grade INT,
     min   INT,
-    max   INT,
-    FOREIGN KEY (grade) REFERENCES students(id)
+    max   INT
 );
 
 INSERT INTO students (name, marks)
-VALUES ('Tony', 3),
-       ('Steve', 20),
-       ('Dave', 1);
+VALUES ('Tony', 88),
+       ('Steve', 23),
+       ('Dave', 47);
 
-INSERT INTO grades (min, max)
-VALUES (20, 50 ),
-       ( 30, 40),
-       (3, 100);
+INSERT INTO grades (grade, min, max)
+VALUES (1, 0, 9),
+       (2, 10, 19),
+       (3, 20, 29),
+       (4, 30, 39),
+       (5, 40, 49),
+       (6, 50, 59),
+       (7, 60, 69),
+       (8, 70, 79),
+       (9, 80, 89),
+       (10, 90, 100);
 
 # Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark.
 # Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- higher grades are entered first.
 # If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically.
 # Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order.
 # If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
-
-SELECT name, grade, marks
+SELECT IF(grade < 8, NULL, name), grade, marks
 FROM students,
      grades
-WHERE
+WHERE marks BETWEEN min AND max
+ORDER BY grade DESC, name ASC;
+
+#
+#
+# NO TABLES CREATED FOR THIS PROBLEM
+/*
+Enter your query here.
+*/
+# SELECT R.HACKER_ID, R.NAME
+# FROM SUBMISSIONS S
+#          INNER JOIN HACKERS R ON R.HACKER_ID = S.HACKER_ID
+#          INNER JOIN CHALLENGES C ON C.CHALLENGE_ID = S.CHALLENGE_ID
+#          INNER JOIN DIFFICULTY D ON D.DIFFICULTY_LEVEL = C.DIFFICULTY_LEVEL
+# GROUP BY R.HACKER_ID, R.NAME
+# HAVING SUM(IF(S.SCORE = D.SCORE, 1, 0)) > 1
+# ORDER BY SUM(IF(S.SCORE = D.SCORE, 1, 0)) DESC, R.HACKER_ID;
