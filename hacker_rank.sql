@@ -186,17 +186,17 @@ VALUES (213, 'Tom', 32, 45000),
        (678, 'Jessica', 3, 40000);
 
 # Write a query that prints a list of employee names (i.e.: the name attribute) from the Employee table in alphabetical order.
-SELECT name from employee ORDER BY name;
+SELECT name
+from employee
+ORDER BY name;
 
 # Write a query that prints a list of employee names (i.e.: the name attribute) for employees in Employee having a salary greater than 2000 per month
 # who have been employees for less than  months. Sort your result by ascending employee_id.
-SELECT name from employee where salary > 2000 and months < 10 ORDER BY employee_id;
-
-
-
-
-
-
+SELECT name
+from employee
+where salary > 2000
+  and months < 10
+ORDER BY employee_id;
 
 
 
@@ -209,10 +209,9 @@ SELECT name from employee where salary > 2000 and months < 10 ORDER BY employee_
 # Write a query to print the pattern P(20).
 
 SET @row := 0;
-SELECT REPEAT('* ', @row := @row + 1) FROM information_schema.TABLES WHERE @row < 20;
-
-
-
+SELECT REPEAT('* ', @row := @row + 1)
+FROM information_schema.TABLES
+WHERE @row < 20;
 
 
 
@@ -222,27 +221,29 @@ SELECT REPEAT('* ', @row := @row + 1) FROM information_schema.TABLES WHERE @row 
 # The COUNTRY table is as follows:
 DROP TABLE IF EXISTS country;
 
-CREATE TABLE country(
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    code VARCHAR(3),
-    name VARCHAR(44),
-    continent VARCHAR(13),
-    region VARCHAR(25),
-    surfacearea INT,
-    indepyear VARCHAR(5),
-    population INT,
+CREATE TABLE country
+(
+    id             INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    code           VARCHAR(3),
+    name           VARCHAR(44),
+    continent      VARCHAR(13),
+    region         VARCHAR(25),
+    surfacearea    INT,
+    indepyear      VARCHAR(5),
+    population     INT,
     lifeexpectancy VARCHAR(4),
-    gnp INT,
-    gnpold VARCHAR(9),
-    localname VARCHAR(44),
+    gnp            INT,
+    gnpold         VARCHAR(9),
+    localname      VARCHAR(44),
     governmentform VARCHAR(44),
-    headofstate VARCHAR(32),
-    capital VARCHAR(4),
-    code2 VARCHAR(2),
+    headofstate    VARCHAR(32),
+    capital        VARCHAR(4),
+    code2          VARCHAR(2),
     PRIMARY KEY (id)
 );
 
-INSERT INTO country (code, name, continent, region, surfacearea, indepyear, population, lifeexpectancy, gnp, gnpold, localname,
+INSERT INTO country (code, name, continent, region, surfacearea, indepyear, population, lifeexpectancy, gnp, gnpold,
+                     localname,
                      governmentform, headofstate, capital, code2)
 VALUES ('321', 'vefvf', 'fref', 'bvefbv', 4235, '1800', 432423,
         '34', 3421432, '32442', 'vrevgre', 'wefqrvreqvr', 'frewvrwe', 'few', 'we'),
@@ -250,14 +251,23 @@ VALUES ('321', 'vefvf', 'fref', 'bvefbv', 4235, '1800', 432423,
         '543543', 'grewgr', 'grewgwre', 'hythyt', 'hyth', 'hy');
 
 # Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
-SELECT SUM(city.population) FROM city INNER JOIN country ON city.countrycode = CODE WHERE CONTINENT = 'ASIA';
+SELECT SUM(city.population)
+FROM city
+         INNER JOIN country ON city.countrycode = CODE
+WHERE CONTINENT = 'ASIA';
 
 #Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
-SELECT c.name FROM city c LEFT JOIN country co ON c.countrycode = co.CODE WHERE co.CONTINENT = 'Africa';
+SELECT c.name
+FROM city c
+         LEFT JOIN country co ON c.countrycode = co.CODE
+WHERE co.CONTINENT = 'Africa';
 
 # Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent)
 # and their respective average city populations (CITY.Population) rounded down to the nearest integer.
-SELECT country.continent, FLOOR(avg(city.population)) FROM country JOIN city ON city.countrycode = country.code GROUP BY country.continent;
+SELECT country.continent, FLOOR(avg(city.population))
+FROM country
+         JOIN city ON city.countrycode = country.code
+GROUP BY country.continent;
 
 #
 #
@@ -267,17 +277,39 @@ SELECT country.continent, FLOOR(avg(city.population)) FROM country JOIN city ON 
 DROP TABLE IF EXISTS students;
 DROP TABLE IF EXISTS grades;
 
-CREATE TABLE students (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50),
+CREATE TABLE students
+(
+    id    INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name  VARCHAR(50),
     marks INT,
     PRIMARY KEY (id)
 );
 
-CREATE TABLE grades(
+CREATE TABLE grades
+(
     grade INT,
-    min INT,
-    max INT,
+    min   INT,
+    max   INT,
     FOREIGN KEY (grade) REFERENCES students(id)
 );
 
+INSERT INTO students (name, marks)
+VALUES ('Tony', 3),
+       ('Steve', 20),
+       ('Dave', 1);
+
+INSERT INTO grades (min, max)
+VALUES (20, 50 ),
+       ( 30, 40),
+       (3, 100);
+
+# Ketty gives Eve a task to generate a report containing three columns: Name, Grade and Mark.
+# Ketty doesn't want the NAMES of those students who received a grade lower than 8. The report must be in descending order by grade -- higher grades are entered first.
+# If there is more than one student with the same grade (8-10) assigned to them, order those particular students by their name alphabetically.
+# Finally, if the grade is lower than 8, use "NULL" as their name and list them by their grades in descending order.
+# If there is more than one student with the same grade (1-7) assigned to them, order those particular students by their marks in ascending order.
+
+SELECT name, grade, marks
+FROM students,
+     grades
+WHERE
